@@ -15,19 +15,13 @@
     "migration:generate": "sequelize-cli migration:generate",
     "model:generate": "sequelize-cli model:generate",
     "seed:generate": "sequelize-cli seed:generate",
-    "start": "dotenv ./bin/www"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mmcclatchy/splitter-front.git"
+    "start": "per-env",
+    "start:development": "nodemon -r dotenv/config ./bin/www",
+    "start:production": "./bin/www"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mmcclatchy/splitter-front/issues"
-  },
-  "homepage": "https://github.com/mmcclatchy/splitter-front#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
