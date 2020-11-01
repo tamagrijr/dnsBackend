@@ -15,9 +15,10 @@
     "migration:generate": "sequelize-cli migration:generate",
     "model:generate": "sequelize-cli model:generate",
     "seed:generate": "sequelize-cli seed:generate",
-    "start": "per-env",
-    "start:development": "nodemon -r dotenv/config ./bin/www",
-    "start:production": "./bin/www"
+    "start:production": "node app.js",
+    "start:development": "nodemon -r dotenv/config index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "per-env"
   },
   "keywords": [],
   "author": "",
