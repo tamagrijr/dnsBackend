@@ -18,7 +18,7 @@
     "start:production": "node app.js",
     "start:development": "nodemon -r dotenv/config index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "dotenv ./bin/www"
   },
   "keywords": [],
   "author": "",
