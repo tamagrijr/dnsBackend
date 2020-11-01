@@ -46,6 +46,13 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        userId: 2,
+        channelId: 4,
+        message: 'Welcome to my demo, don\'t make fun of my styling, or I will delete your account',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
 
       //GroupMessages
       {

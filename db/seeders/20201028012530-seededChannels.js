@@ -25,6 +25,13 @@ module.exports = {
         updatedAt: new Date(),
         },
         {
+          ownerId: 2,
+          name: 'a/A',
+          channelAvatar: 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Appacademylogo.png',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          },
+        {
         ownerId: 1,
         name: 'Demo\'s First Channel',
         createdAt: new Date(),
