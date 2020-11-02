@@ -12,7 +12,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
 // app.use(cors());
-const whitelist = ['http://localhost:3000'];
+const whitelist = ['http://localhost:3000', 'https://master.dbjcnb793ygs.amplifyapp.com'];
 const corsOptions = {
   credentials: true, // This is important.
   origin: (origin, callback) => {
