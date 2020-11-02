@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
-    avatarUrl: DataTypes.STRING,
+    avatarUrl: DataTypes.STRING(500),
     userName: DataTypes.STRING(100),
     bio: DataTypes.STRING,
     hashedPassword: {

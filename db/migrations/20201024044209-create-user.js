@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       avatarUrl: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(500)
       },
       userName: {
         type: Sequelize.STRING
