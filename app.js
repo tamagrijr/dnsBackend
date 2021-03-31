@@ -1,5 +1,5 @@
 const express = require('express');
-// const cors = require('cors');
+const cors = require('cors');
 const createError = require('http-errors');
 const helmet = require('helmet');
 const path = require('path');
