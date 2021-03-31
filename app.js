@@ -9,14 +9,7 @@ const { addMessageToChannel, getUserInfo } = require('./utils')
 
 const app = express();
 const http = require('http').createServer(app);
-const io = require("socket.io")(httpServer, {
-  cors: {
-    origin: "https://tamagrijr.github.io/dnsFrontend/",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["my-custom-header"],
-    credentials: true
-  }
-});
+const io = require('socket.io')(http);
 
 const whitelist = ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'];
 const corsOptions = {
@@ -29,7 +22,7 @@ const corsOptions = {
   }
 }
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', "http://localhost:3000");
+  res.setHeader('Access-Control-Allow-Origin', "http://localhost:3000", 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io');
   next();
 })
 app.use(cors(corsOptions));
