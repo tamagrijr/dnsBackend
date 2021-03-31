@@ -11,19 +11,21 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-// app.use(cors());
 const whitelist = ['http://localhost:3000', 'https://master.dbjcnb793ygs.amplifyapp.com', 'https://tamagrijr.github.io/dnsFrontend/'];
 const corsOptions = {
   credentials: true, // This is important.
   origin: (origin, callback) => {
     if(whitelist.includes(origin)){
-      // console.log('-------------------hello')
-      return callback(null, true)
+      return callback(null, {origin: true})
     }
       callback(new Error('Not allowed by CORS'));
   }
 }
-// app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', "http://localhost:3000");
+  next();
+})
+app.use(cors(corsOptions));
 app.use(helmet({ hsts: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
