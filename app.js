@@ -25,7 +25,7 @@ const corsOptions = {
   }
 }
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin',  'https://tamagrijr.github.io/');
+  res.setHeader('Access-Control-Allow-Origin',  'https://tamagrijr.github.io');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 })
