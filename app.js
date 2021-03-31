@@ -11,7 +11,7 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require("socket.io")(httpServer, {
   cors: {
-    origin: "https://tamagrijr.github.io",
+    origin: "https://tamagrijr.github.io/dnsFrontend/",
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true
