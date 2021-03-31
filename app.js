@@ -9,16 +9,19 @@ const { addMessageToChannel, getUserInfo } = require('./utils')
 
 const app = express();
 const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+  cors: true,
+  origins: ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'],
+});
 
 const whitelist = ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'];
 const corsOptions = {
   credentials: true, // This is important.
   origin: (origin, callback) => {
-    if(whitelist.includes(origin)){
-      return callback(null, {origin: true})
+    if (whitelist.includes(origin)) {
+      return callback(null, { origin: true })
     }
-      callback(new Error('Not allowed by CORS'));
+    callback(new Error('Not allowed by CORS'));
   }
 }
 app.use((req, res, next) => {
@@ -44,34 +47,34 @@ io.on('connection', async (socket) => {
   console.log(`${socket.id} -- Connected`);
 
   socket.on('join', async (channelId) => {
-      const channel = await Channel.findByPk(channelId);
-      if (channel) {
-          socket.join(`channel${channel.id}`, async () => {
-              console.log(`${socket.id} has joined ${channel.name}`);
-          });
-      }
+    const channel = await Channel.findByPk(channelId);
+    if (channel) {
+      socket.join(`channel${channel.id}`, async () => {
+        console.log(`${socket.id} has joined ${channel.name}`);
+      });
+    }
   });
 
   const channels = await Channel.findAll();
   for (let channel of channels) {
     console.log(`listening for messages from ${channel.name}`);
-    socket.on(`channel${channel.id}`, async ({userId, message, channelId}) => {
-        console.log(`${channel.name} -- working`);
-        const newMessage = await addMessageToChannel(userId, channelId, message)
-        socket.to(`channel${channel.id}`).emit(`channel${channel.id}`, newMessage);
-        socket.emit(`channel${channel.id}`, newMessage);
+    socket.on(`channel${channel.id}`, async ({ userId, message, channelId }) => {
+      console.log(`${channel.name} -- working`);
+      const newMessage = await addMessageToChannel(userId, channelId, message)
+      socket.to(`channel${channel.id}`).emit(`channel${channel.id}`, newMessage);
+      socket.emit(`channel${channel.id}`, newMessage);
     });
   }
 
 });
 
 /*************** Error Handlers ***************/
-app.use(function(_req, _res, next) {
+app.use(function (_req, _res, next) {
   // console.log(`-----------------------------404`)
   next(createError(404));
 });
 
-app.use(function(err, _req, res, _next) {
+app.use(function (err, _req, res, _next) {
   res.status(err.status || 500);
   if (err.status === 401) {
     res.set('WWW-Authenticate', 'Bearer');
