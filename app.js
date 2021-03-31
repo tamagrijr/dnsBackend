@@ -24,12 +24,20 @@ const corsOptions = {
     callback(new Error('Not allowed by CORS'));
   }
 }
-app.use((req, res, next) => {
-  req.setHeader('Access-Control-Allow-Origin',  'https://tamagrijr.github.io');
-  res.setHeader('Access-Control-Allow-Origin',  'https://tamagrijr.github.io');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+const allowedOrigins = ["http://localhost:3000", 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'];
+app.use(function(req, res, next) {
+  let origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin); // restrict it to the required domain
+  }
+
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   next();
-})
+});
+
 app.use(cors({ origin: true }));
 app.use(helmet({ hsts: false }));
 app.use(express.json());
