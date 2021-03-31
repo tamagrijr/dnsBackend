@@ -16,16 +16,16 @@ const io = require('socket.io')(http);
 //   origins: ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'],
 // });
 
-// const whitelist = ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'];
-// const corsOptions = {
-//   credentials: true, // This is important.
-//   origin: (origin, callback) => {
-//     if (whitelist.includes(origin)) {
-//       return callback(null, { origin: true })
-//     }
-//     callback(new Error('Not allowed by CORS'));
-//   }
-// }
+const whitelist = ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'];
+const corsOptions = {
+  credentials: true, // This is important.
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin)) {
+      return callback(null, { origin: true })
+    }
+    callback(new Error('Not allowed by CORS'));
+  }
+}
 
 // const allowedOrigins = ["http://localhost:3000", 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'];
 // app.use(function(req, res, next) {
@@ -41,13 +41,13 @@ const io = require('socket.io')(http);
 //   next();
 // });
 
-// app.use(cors());
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', "*");
-  res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
 })
+app.use(cors(corsOptions));
 app.use(helmet({ hsts: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
