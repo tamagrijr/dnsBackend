@@ -38,7 +38,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(cors({ origin: true }));
+app.use(cors());
 app.use(helmet({ hsts: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
