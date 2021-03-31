@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 const createError = require('http-errors');
 const helmet = require('helmet');
 const path = require('path');
@@ -9,36 +9,45 @@ const { addMessageToChannel, getUserInfo } = require('./utils')
 
 const app = express();
 const http = require('http').createServer(app);
-const io = require('socket.io')(http, {
-  cors: true,
-  origins: ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'],
-});
+const io = require('socket.io')(http);
 
-const whitelist = ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'];
-const corsOptions = {
-  credentials: true, // This is important.
-  origin: (origin, callback) => {
-    if (whitelist.includes(origin)) {
-      return callback(null, { origin: true })
-    }
-    callback(new Error('Not allowed by CORS'));
-  }
-}
-const allowedOrigins = ["http://localhost:3000", 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'];
+// const io = require('socket.io')(http, {
+//   cors: true,
+//   origins: ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'],
+// });
+
+// const whitelist = ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'];
+// const corsOptions = {
+//   credentials: true, // This is important.
+//   origin: (origin, callback) => {
+//     if (whitelist.includes(origin)) {
+//       return callback(null, { origin: true })
+//     }
+//     callback(new Error('Not allowed by CORS'));
+//   }
+// }
+
+// const allowedOrigins = ["http://localhost:3000", 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'];
+// app.use(function(req, res, next) {
+//   let origin = req.headers.origin;
+//   if (allowedOrigins.includes(origin)) {
+//     res.header("Access-Control-Allow-Origin", origin); // restrict it to the required domain
+//   }
+
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
+
+// app.use(cors());
 app.use(function(req, res, next) {
-  let origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.header("Access-Control-Allow-Origin", origin); // restrict it to the required domain
-  }
-
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
-});
-
-app.use(cors());
+})
 app.use(helmet({ hsts: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
