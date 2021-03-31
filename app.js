@@ -11,7 +11,7 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-const whitelist = ['http://localhost:3000', 'https://master.dbjcnb793ygs.amplifyapp.com', 'https://tamagrijr.github.io/dnsFrontend/'];
+const whitelist = ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'];
 const corsOptions = {
   credentials: true, // This is important.
   origin: (origin, callback) => {
