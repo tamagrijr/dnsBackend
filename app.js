@@ -16,7 +16,7 @@ const io = require('socket.io')(http);
 //   origins: ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'],
 // });
 
-const whitelist = ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend/', 'https://tamagrijr.github.io'];
+const whitelist = ['http://localhost:3000', 'https://tamagrijr.github.io/dnsFrontend', 'https://tamagrijr.github.io'];
 const corsOptions = {
   credentials: true, // This is important.
   origin: (origin, callback) => {
